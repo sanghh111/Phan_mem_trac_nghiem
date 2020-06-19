@@ -1,5 +1,4 @@
 from Question import *
-from choice import *
 
 class Quiz:
     def __init__(self,content="",duration=0):
@@ -21,12 +20,7 @@ class Quiz:
     def getQues(self):
         return self.Ques        
 
-q=Quiz("test nhanh",0)
-Q=Question("2+2",0)
-C=choice("4",1)
-Q.addChoice(C)
-q.addQuestion(Q)
-for i in q.getQues():
-    print(i.getContent())
-    for j in i.getChoice():
-        print(j.get_choice())
+    def exportFIle(self):
+        namefile="quiz/"+self.content+".quiz"
+        out=open(namefile,"w")
+        

@@ -1,5 +1,4 @@
-import choice
-
+from choice import *
 class Question:
     def __init__(self,content="",Type=False):
         self.content=content

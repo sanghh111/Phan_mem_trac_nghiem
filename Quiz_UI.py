@@ -1,8 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk
-
-class Quiz(Frame):
-    def __init__(self,master=None):
+from Quiz import *
+class QuesUI(Frame):
+    def __init__(self,q,master=None):
         Frame.__init__(self,master)
         self.master=master
         self.tool_1=[]
@@ -17,6 +17,7 @@ class Quiz(Frame):
         self.bool=[]
         self.choice=[]
         self.Page=0
+        self.q=q
         self.display()
     
     def display(self):
@@ -35,6 +36,9 @@ class Quiz(Frame):
         self.Button_2=Button(self.master,text="previousPage",command=self.previousPage)
         self.Button_2.pack()
         self.Button_2.place(x=0,y=375)
+        self.Button_3=Button(self.master,text="UpdateQuiz",command=self.updateQ)
+        self.Button_3.pack()
+        self.Button_3.place(x=180,y=375)
         self.master.mainloop()
 
     def tool(self):
@@ -83,7 +87,11 @@ class Quiz(Frame):
         self.Quiz=None
         self.tool_2.destroy()
         self.tool_2=None
-        self.Label.append(Label(self.master,textvariable=self.name[self.Page],font=("Helvetica", 20)))
+        try:
+            self.Label[self.Page]
+        except:
+            self.Label.append(Label(self.master,textvariable=self.name[self.Page],font=("Helvetica", 20)))
+        self.Label[self.Page]=Label(self.master,textvariable=self.name[self.Page],font=("Helvetica", 20))
         self.Label[self.Page].pack()
         self.Label[self.Page].place(x=200,y=150,anchor="center")
         if self.tool_1:
@@ -197,8 +205,13 @@ class Quiz(Frame):
             for i in self.choice[self.Page]:
                 i.pack_forget()
                 i.place_forget()
-            self.Label[self.Page].pack_forget()
-            self.Label[self.Page].place_forget()
+            try :
+                self.Label[self.Page]
+            except:
+                self.Label.append([])
+            if self.Label[self.Page]:
+                self.Label[self.Page].pack_forget()
+                self.Label[self.Page].place_forget()
             self.Page+=1
             try :
                 self.choice[self.Page]
@@ -206,13 +219,35 @@ class Quiz(Frame):
                 self.choice.append([])
                 self.content.append([])
                 self.bool.append([])
+                self.Label.append([])
             self.choices=0
+            self.updateC()
+            if self.Label[self.Page]:
+                self.Label[self.Page].pack()
+                self.Label[self.Page].place(x=200,y=150,anchor="center")
 
 
     def previousPage(self):
         if self.Page>=1:
+            for i in self.choice[self.Page]:
+                i.pack_forget()
+                i.place_forget()
+            if self.Label[self.Page]:
+                self.Label[self.Page].pack_forget()
+                self.Label[self.Page].place_forget()
             self.Page-=1
             self.updateC()
-            self.Label[self.Page].pack()
-            self.Label[self.Page].place(x=200,y=150,anchor="center")
-App=Quiz(Tk())
+            if self.Label[self.Page]:
+                self.Label[self.Page].pack()
+                self.Label[self.Page].place(x=200,y=150,anchor="center")
+            print(self.Page)
+
+    def updateQ(self):
+        self.master.destroy()
+        for i in self.name:
+            a=Question(i.get(),1)
+            self.q.addQuestion(a)
+        a=self.q.getQues()
+        print(a)
+q=Quiz("sang",10)
+App=QuesUI(q,Tk())
