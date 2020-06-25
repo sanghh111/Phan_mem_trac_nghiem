@@ -1,6 +1,5 @@
-from tkinter import *
-from DB import *
 from registration import *
+from Student_begin import *
 from PIL import Image, ImageTk
 import hashlib
 import time 
@@ -22,28 +21,32 @@ class Login(Frame):
         self.hinh.append(ImageTk.PhotoImage(self.load[1]))
         self.load.append(Image.open("Image\\Entry.png"))
         self.hinh.append(ImageTk.PhotoImage(self.load[2]))
+        self.load.append(Image.open("Image\\Sign-Up100x50.png"))
+        self.hinh.append(ImageTk.PhotoImage(self.load[3]))
         Label(self.master,image=self.hinh[1]).place(x=0,y=0)
+        self.master.minsize(800,500)
         self.master.maxsize(800,500)
         A=Label(self.master,text="Account")
         B=Entry(self.master,textvariable=self.account,bg="gray",selectbackground="black")
         C=Label(self.master,text="Passworld")
         D=Entry(self.master,textvariable=self.password,show="*",bg="gray")
         E=Button(self.master,image=self.hinh[0],command=self.login)
-        F=Button(self.master,text="registration",command=self.reg)
+        F=Button(self.master,image=self.hinh[3],command=self.reg)
         K=Button(self.master,text="Exit")
-        A.place(bordermode=OUTSIDE,x=0,y=60)
-        B.place(bordermode=OUTSIDE,x=60,y=60)
-        C.place(bordermode=OUTSIDE,x=0,y=80)
-        D.place(bordermode=OUTSIDE,x=60,y=80)
-        E.place(bordermode=OUTSIDE,x=0,y=100)
-        F.place(bordermode=OUTSIDE,x=70,y=100)
-        K.place(bordermode=OUTSIDE,x=170,y=100) 
+        A.place(bordermode=OUTSIDE,x=300,y=150)
+        B.place(bordermode=OUTSIDE,x=362,y=152)
+        C.place(bordermode=OUTSIDE,x=300,y=170)
+        D.place(bordermode=OUTSIDE,x=362,y=172)
+        E.place(bordermode=OUTSIDE,x=300,y=300)
+        F.place(bordermode=OUTSIDE,x=500,y=300)
+        # K.place(bordermode=OUTSIDE,x=170,y=100) 
         # self.master.bind('<Button-1>',self.motion)
         self.master.mainloop()
 
     def login(self):
         if Checkpassworld(self.cur,self.account.get(),self.password.get()):
-            print("True")
+            self.master.destroy()
+            Open_S(Tk())
         else :
             print("Flase")
 

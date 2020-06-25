@@ -77,8 +77,53 @@ def Checkpassworld(cur,id,pas):
     else:
         return False
 
+def Creat_TableISV(cur):
+    strSQL = """
+        CREATE TABLE if not exists ISV
+        (
+            ID text PRIMARY KEY,
+            CLASS text,
+            NAME text,
+            BIRTHDAY date,
+            SEX text,
+            PHONE text,
+            EMAIL text
+        )"""
+    str
+    success_flag = True
+    try :
+        cur.execute(strSQL)
+    except:
+        success_flag = False
+    if success_flag == True :
+        print("Creat Ok")
+    else:
+        print("Creat Fail: ")
+
+def Insert_ISV(cur,con,id,claSs,name,birth,sex,phone,email):
+    success_flag=True
+    try:
+        cur.execute("""INSERT OR IGNORE INTO ISV
+                VALUES(?,?,?,?,?,?,?)""",(id,claSs,name,birth,sex,phone,email))
+    except:
+        success_flag=False
+    if success_flag == True:
+        con.commit()
+        return True
+    else:
+        return False
+
+def Select_ISV(cur,id):
+    result = cur.execute("SELECT * FROM ISV WHERE ID = ?;",(id,)).fetchone()
+    return result
+
 
 # con,cur=connect_DB("Sinhvien.db")
+# a=Select_ISV(cur,"Sang")
+# print(a)
+# a=Insert_ISV(cur,con,"123","","","","","","")
+# print(a)
+# Creat_TableISV(cur)
 # a=Select_SV_salt(cur,"123")
 # print(a)
 # a=Insert_SV(cur,con,"12","123abc","abc")

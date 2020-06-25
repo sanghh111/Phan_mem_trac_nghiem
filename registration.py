@@ -1,5 +1,5 @@
-from DB import *
 from tkinter import *
+from DB import *
 import hashlib
 import string
 import random
@@ -12,11 +12,17 @@ class registration(Frame):
         self.master=master
         self.passWord=StringVar()
         self.account=StringVar()
+        self.Class=StringVar()
+        self.name=StringVar()
+        self.birth=StringVar()
+        self.sex=StringVar()
+        self.phone=StringVar()
+        self.email=StringVar()
         self.con,self.cur=connect_DB("Sinhvien.db")
         self.display()
 
     def display(self):
-        A=Label(self.master,text="Account")
+        A=Label(self.master,text="Id")
         B=Entry(self.master,textvariable=self.account)
         C=Label(self.master,text="Passworld")
         D=Entry(self.master,textvariable=self.passWord)
@@ -26,8 +32,20 @@ class registration(Frame):
         D.grid(column=1,row=1)
         E=Button(self.master,text="OK",command=self.reg)
         F=Button(self.master,text="Cancel",command=self.master.destroy)
-        E.grid(column=2,row=2)
-        F.grid(column=0,row=2)
+        E.grid(column=2,row=8)
+        F.grid(column=0,row=8)
+        Label(self.master,text="Class").grid(column=0,row=2)
+        Entry(self.master,textvariable=self.Class).grid(column=1,row=2)
+        Label(self.master,text="Name").grid(column=0,row=3)
+        Entry(self.master,textvariable=self.name).grid(column=1,row=3)
+        Label(self.master,text="Birthday").grid(column=0,row=4)
+        Entry(self.master,textvariable=self.birth).grid(column=1,row=4)
+        Label(self.master,text="Sex").grid(column=0,row=5)
+        Entry(self.master,textvariable=self.sex).grid(column=1,row=5)
+        Label(self.master,text="Phone").grid(column=0,row=6)
+        Entry(self.master,textvariable=self.phone).grid(column=1,row=6)
+        Label(self.master,text="Email").grid(column=0,row=7)
+        Entry(self.master,textvariable=self.email).grid(column=1,row=7)
         self.mainloop()
 
     def reg(self):
@@ -43,9 +61,7 @@ class registration(Frame):
         passWord=mk
         # print(passWord)
         # mk.update(self.passWord.encode())
-        success=Insert_SV(self.cur,self.con,self.account.get(),passWord,salt)
-        if success:
-            print("True")
-        else:
-            print("False")
+        Insert_SV(self.cur,self.con,self.account.get(),passWord,salt)
+        a=Insert_ISV(self.cur,self.con,self.account.get(),self.Class.get(),self.name.get(),self.birth.get(),self.sex.get(),self.phone.get(),self.email.get())
+        print(a)
         self.master.destroy()
