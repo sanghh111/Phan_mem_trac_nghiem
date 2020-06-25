@@ -1,7 +1,11 @@
 from DB import *
 from tkinter import *
 import hashlib
-
+import string
+import random
+def randomString(stringLength=6):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))
 class registration(Frame):
     def __init__(self,master):
         Frame.__init__(self,master)
@@ -31,11 +35,15 @@ class registration(Frame):
         for i in arrId:
             if self.account.get() in i :      
                 return 
-        mk= hashlib.md5(self.passWord.get().encode('utf-8')).hexdigest()
+        salt=randomString()
+        passWord=self.passWord.get()+salt
+        print(passWord)
+        mk= hashlib.md5(passWord.encode('utf-8')).hexdigest()
         # print(mk)
-        self.passWord=mk
+        passWord=mk
+        # print(passWord)
         # mk.update(self.passWord.encode())
-        success=Insert_SV(self.cur,self.con,self.account.get(),self.passWord)
+        success=Insert_SV(self.cur,self.con,self.account.get(),passWord,salt)
         if success:
             print("True")
         else:
