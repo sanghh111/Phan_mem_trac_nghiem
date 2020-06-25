@@ -1,5 +1,6 @@
 from DB import *
 from tkinter import *
+import hashlib
 
 class registration(Frame):
     def __init__(self,master):
@@ -27,12 +28,16 @@ class registration(Frame):
 
     def reg(self):
         arrId=Select_SV(self.cur)
-        success=True
         for i in arrId:
             if self.account.get() in i :      
-                success=False
                 return 
+        mk= hashlib.md5(self.passWord.get().encode('utf-8')).hexdigest()
+        # print(mk)
+        self.passWord=mk
+        # mk.update(self.passWord.encode())
+        success=Insert_SV(self.cur,self.con,self.account.get(),self.passWord)
         if success:
-            Insert_SV(self.cur,self.con,self.account.get(),self.passWord.get())
-            self.master.destroy()
-registration(Tk())
+            print("True")
+        else:
+            print("False")
+        self.master.destroy()

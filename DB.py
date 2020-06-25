@@ -31,13 +31,13 @@ def Insert_SV(cur,con,id,passWorld):
     except:
         success_flag=False
     if success_flag == True:
-        return True
         con.commit()
+        return True
     else:
         return False
 
 def Select_SV(cur):
-    result = cur.execute("SELECT ID FROM SV").fetchall()
+    result = cur.execute("SELECT * FROM SV")
     return result
 
 def Update_User(cur,con,id,newPassWorld):
@@ -62,8 +62,13 @@ def Checkpassworld(cur,id,pas):
         pas_old=pas_old.fetchone()
         pas_old=pas_old[0]
     except:
-        return False  
+        return False
     if(pas_old==pas):
         return True
     else:
         return False
+
+con,cur=connect_DB("Sinhvien.db")
+a=Select_SV(cur)
+for i in a:
+    print(i)

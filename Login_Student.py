@@ -17,7 +17,7 @@ class Login(Frame):
         C=Label(self.master,text="Passworld")
         D=Entry(self.master,textvariable=self.password)
         E=Button(self.master,text="Login",command=self.login)
-        F=Button(self.master,text="registration")
+        F=Button(self.master,text="registration",command=self.reg)
         K=Button(self.master,text="Exit")
         A.pack()
         A.place(bordermode=OUTSIDE,x=0,y=60)
@@ -39,5 +39,10 @@ class Login(Frame):
     def login(self):
         print(self.account.get())
 
+    def reg(self):
+        App=Toplevel()
+        registration(App)
 
+    def log(self):
+        pass
 App=Login(Tk())
