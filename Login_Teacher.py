@@ -1,5 +1,5 @@
-from registration import *
-from Student_begin import *
+from Sign_upT import *
+from Lecture_begin import *
 from PIL import Image, ImageTk
 import hashlib
 import time 
@@ -26,7 +26,7 @@ class Login(Frame):
         Label(self.master,image=self.hinh[1]).place(x=0,y=0)
         self.master.minsize(800,500)
         self.master.maxsize(800,500)
-        A=Label(self.master,text="Account")
+        A=Label(self.master,text="Acscount")
         B=Entry(self.master,textvariable=self.account,bg="gray",selectbackground="black")
         C=Label(self.master,text="Passworld")
         D=Entry(self.master,textvariable=self.password,show="*",bg="gray")
@@ -44,7 +44,7 @@ class Login(Frame):
         self.master.mainloop()
 
     def login(self):
-        if Checkpassworld_SV(self.cur,self.account.get(),self.password.get()):
+        if Checkpassworld_T(self.cur,self.account.get(),self.password.get()):
             self.master.destroy()
             Open_S(Tk(),self.account.get())
         else :

@@ -1,4 +1,4 @@
-from Changeinfo import*
+from changeinfoT import*
 class Open_S(Frame):
     def __init__(self,master,id):
         Frame.__init__(self,master)
@@ -6,7 +6,7 @@ class Open_S(Frame):
         self.can=[]
         self.id=id
         self.con,self.cur=connect_DB("Sinhvien.db")
-        self.arr_info=Select_ISV(self.cur,self.id)
+        self.arr_info=Select_IT(self.cur,self.id)
         self.display()
 
     def display(self):

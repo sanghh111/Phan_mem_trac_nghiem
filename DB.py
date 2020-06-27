@@ -46,7 +46,7 @@ def Select_SV_salt(cur,id):
     result = cur.execute("SELECT SALT FROM SV WHERE ID = ?;",(id,)).fetchone()
     return(result[0])
 
-def Update_User(cur,con,id,newPassWorld):
+def Update_SV_pass(cur,con,id,newPassWorld):
     success_flag = True
     try:
         st1="UPDATE OR IGNORE SV SET "
@@ -62,7 +62,7 @@ def Update_User(cur,con,id,newPassWorld):
     else :
       return False
 
-def Checkpassworld(cur,id,pas):
+def Checkpassworld_SV(cur,id,pas):
     try:
         salt=Select_SV_salt(cur,id)
         pas=pas+salt
@@ -117,8 +117,182 @@ def Select_ISV(cur,id):
     result = cur.execute("SELECT * FROM ISV WHERE ID = ?;",(id,)).fetchone()
     return result
 
+def Select_T_salt(cur,id):
+    result = cur.execute("SELECT SALT FROM T WHERE ID = ?;",(id,)).fetchone()
+    return(result[0])
 
+def Update_ISV(cur,con,id,Class,name,birth,gender,phone,email):
+    success_flag=True
+    str1="UPDATE OR IGNORE ISV SET "
+    a=[]
+    if Class!="":
+        a.append("\nCLASS = "+Class)
+    if name!="":
+        a.append("\nNAME = "+name)
+    if gender!="":
+        a.append("\nSEX = "+gender)
+    if birth!="":
+        a.append("\nBIRTHDAY = "+birth)
+    if phone!="":
+        a.append("\nPHONE = "+phone)
+    if email!="":
+        a.append("\nEMAIL = "+email)
+    for i in a:
+        if i==a[-1]:
+            str1+=i
+        else:
+            str1+=i+","
+    str2="\nWHERE ID = "+id+";"
+    str1+=str2
+    print(str1)
+    # cur.execute(str1)
+    try:
+        cur.execute(str1)
+    except:
+        success_flag=False
+    if success_flag:
+        con.commit()
+        return True
+    else:
+        return False
+
+
+
+#                                           LETURER
+
+
+
+
+def Creat_Table_T(cur):
+    strSQL = """
+        CREATE TABLE if not exists T
+        (
+            ID text PRIMARY KEY,
+            PASSWORD text,
+            SALT text
+        )"""
+    str
+    success_flag = True
+    try :
+        cur.execute(strSQL)
+    except:
+        success_flag = False
+    if success_flag == True :
+        print("Creat Ok")
+    else:
+        print("Creat Fail: ")
+
+def Insert_T(cur,con,id,passWord,salt):
+    success_flag=True
+    try:
+        cur.execute("""INSERT OR IGNORE INTO T
+                VALUES(?,?,?)""",(id,passWord,salt) )
+    except:
+        success_flag=False
+    if success_flag == True:
+        con.commit()
+        return True
+    else:
+        return False
+
+def Select_T(cur):
+    result = cur.execute("SELECT * FROM T")
+    return result
+
+def Checkpassworld_T(cur,id,pas):
+    try:
+        salt=Select_T_salt(cur,id)
+        pas=pas+salt
+        mk= hashlib.md5(pas.encode('utf-8')).hexdigest()
+        pas_old=cur.execute('SELECT PASSWORD FROM T WHERE ID = ?;',(id,))
+        pas_old=pas_old.fetchone()
+        pas_old=pas_old[0]
+    except:
+        return False
+    if(pas_old==mk):
+        return True
+    else:
+        return False
+
+def Creat_TableIT(cur):
+    strSQL = """
+        CREATE TABLE if not exists IT
+        (
+            ID text PRIMARY KEY,
+            IDMA text,
+            NAME text,
+            BIRTHDAY date,
+            SEX text,
+            PHONE text,
+            EMAIL text
+        )"""
+    str
+    success_flag = True
+    try :
+        cur.execute(strSQL)
+    except:
+        success_flag = False
+    if success_flag == True :
+        print("Creat Ok")
+    else:
+        print("Creat Fail: ")
+
+def Insert_IT(cur,con,id,IMA,name,birth,sex,phone,email):
+    success_flag=True
+    try:
+        cur.execute("""INSERT OR IGNORE INTO IT
+                VALUES(?,?,?,?,?,?,?)""",(id,IMA,name,birth,sex,phone,email))
+    except:
+        success_flag=False
+    if success_flag == True:
+        con.commit()
+        return True
+    else:
+        return False
+
+def Select_IT(cur,id):
+    result = cur.execute("SELECT * FROM IT WHERE ID = ?;",(id,)).fetchone()
+    return result
+
+def Update_IT(cur,con,id,IDMA,name,birth,gender,phone,email):
+    success_flag=True
+    str1="UPDATE OR IGNORE IT SET "
+    a=[]
+    if IDMA !="":
+        a.append("\n IDMA = "+IDMA)
+    if name!="":
+        a.append("\n NAME = "+name)
+    if gender!="":
+        a.append("\n SEX = "+gender)
+    if birth!="":
+        a.append("\n BIRTHDAY = "+birth)
+    if phone!="":
+        a.append("\n PHONE = "+phone)
+    if email!="":
+        a.append("\n EMAIL = "+email)
+    for i in a:
+        if i==a[-1]:
+            str1+=i
+        else:
+            str1+=i+","
+    str2="\nWHERE ID = "+id+";"
+    str1+=str2
+    print(str1)
+    # cur.execute(str1)
+    try:
+        cur.execute(str1)
+    except:
+        success_flag=False
+    if success_flag:
+        con.commit()
+        return True
+    else:
+        return False
 # con,cur=connect_DB("Sinhvien.db")
+# Creat_Table_T(cur)
+# Creat_TableIT(cur)
+# a=Update_ISV(cur,con,"123","2","1","12312","","123","12312")
+# print(a)
 # a=Select_ISV(cur,"Sang")
 # print(a)
 # a=Insert_ISV(cur,con,"123","","","","","","")

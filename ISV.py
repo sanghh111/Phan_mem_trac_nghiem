@@ -12,12 +12,6 @@ class ifs(Frame):
         self.sex=StringVar()
         self.phone=StringVar()
         self.email=StringVar()
-        self.Class=StringVar()
-        self.name=StringVar()
-        self.birth=StringVar()
-        self.sex=StringVar()
-        self.phone=StringVar()
-        self.email=StringVar()
         self.con,self.cur=connect_DB("Sinhvien.db")
         self.display()
 
@@ -43,4 +37,6 @@ class ifs(Frame):
     def Ok(self):
         a=Insert_ISV(self.cur,self.con,self.ID,self.Class,self.name,self.birth,self.sex,self.phone,self.email)
         print(a)
-        self.master.destroy()
+        if a:
+            return True
+        pass
