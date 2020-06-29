@@ -14,7 +14,7 @@ class Login(Frame):
         self.hinh=[]
         self.display()
     
-    def display(self):
+    def display(self):  
         self.load.append(Image.open("Image\\Sign-in50x50.png"))
         self.hinh.append(ImageTk.PhotoImage(self.load[0]))
         self.load.append(Image.open("Image\\GenyTeam50x50.png"))

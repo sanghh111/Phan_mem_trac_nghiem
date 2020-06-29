@@ -12,7 +12,6 @@ class registration(Frame):
         self.master=master
         self.passWord=StringVar()
         self.account=StringVar()
-        self.Class=StringVar()
         self.name=StringVar()
         self.birth=StringVar()
         self.sex=StringVar()
@@ -34,22 +33,20 @@ class registration(Frame):
         F=Button(self.master,text="Cancel",command=self.master.destroy)
         E.grid(column=2,row=8)
         F.grid(column=0,row=8)
-        Label(self.master,text="Class").grid(column=0,row=2)
-        Entry(self.master,textvariable=self.Class).grid(column=1,row=2)
-        Label(self.master,text="Name").grid(column=0,row=3)
-        Entry(self.master,textvariable=self.name).grid(column=1,row=3)
-        Label(self.master,text="Birthday").grid(column=0,row=4)
-        Entry(self.master,textvariable=self.birth).grid(column=1,row=4)
-        Label(self.master,text="Sex").grid(column=0,row=5)
-        Entry(self.master,textvariable=self.sex).grid(column=1,row=5)
-        Label(self.master,text="Phone").grid(column=0,row=6)
-        Entry(self.master,textvariable=self.phone).grid(column=1,row=6)
-        Label(self.master,text="Email").grid(column=0,row=7)
-        Entry(self.master,textvariable=self.email).grid(column=1,row=7)
+        Label(self.master,text="Name").grid(column=0,row=2)
+        Entry(self.master,textvariable=self.name).grid(column=1,row=2)
+        Label(self.master,text="Birthday").grid(column=0,row=3)
+        Entry(self.master,textvariable=self.birth).grid(column=1,row=3)
+        Label(self.master,text="Gender").grid(column=0,row=4)
+        Entry(self.master,textvariable=self.sex).grid(column=1,row=4)
+        Label(self.master,text="Phone").grid(column=0,row=5)
+        Entry(self.master,textvariable=self.phone).grid(column=1,row=5)
+        Label(self.master,text="Email").grid(column=0,row=6)
+        Entry(self.master,textvariable=self.email).grid(column=1,row=6)
         self.mainloop()
 
     def reg(self):
-        arrId=Select_SV(self.cur)
+        arrId=Select_T(self.cur)
         for i in arrId:
             if self.account.get() in i :      
                 return 
@@ -61,7 +58,8 @@ class registration(Frame):
         passWord=mk
         # print(passWord)
         # mk.update(self.passWord.encode())
-        Insert_SV(self.cur,self.con,self.account.get(),passWord,salt)
-        a=Insert_ISV(self.cur,self.con,self.account.get(),self.Class.get(),self.name.get(),self.birth.get(),self.sex.get(),self.phone.get(),self.email.get())
+        a=Insert_SV(self.cur,self.con,self.account.get(),passWord,salt)
+        print(a)
+        a=Insert_ISV(self.cur,self.con,self.account.get(),self.name.get(),self.birth.get(),self.sex.get(),self.phone.get(),self.email.get())
         print(a)
         self.master.destroy()

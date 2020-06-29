@@ -82,7 +82,6 @@ def Creat_TableISV(cur):
         CREATE TABLE if not exists ISV
         (
             ID text PRIMARY KEY,
-            CLASS text,
             NAME text,
             BIRTHDAY date,
             SEX text,
@@ -100,11 +99,11 @@ def Creat_TableISV(cur):
     else:
         print("Creat Fail: ")
 
-def Insert_ISV(cur,con,id,claSs,name,birth,sex,phone,email):
+def Insert_ISV(cur,con,id,name,birth,sex,phone,email):
     success_flag=True
     try:
         cur.execute("""INSERT OR IGNORE INTO ISV
-                VALUES(?,?,?,?,?,?,?)""",(id,claSs,name,birth,sex,phone,email))
+                VALUES(?,?,?,?,?,?)""",(id,name,birth,sex,phone,email))
     except:
         success_flag=False
     if success_flag == True:
@@ -118,15 +117,13 @@ def Select_ISV(cur,id):
     return result
 
 def Select_T_salt(cur,id):
-    result = cur.execute("SELECT SALT FROM T WHERE ID = ?;",(id,)).fetchone()
+    result = cur.execute("SELECT SALT FROM T WHERE IDT = ?;",(id,)).fetchone()
     return(result[0])
 
-def Update_ISV(cur,con,id,Class,name,birth,gender,phone,email):
+def Update_ISV(cur,con,id,name,birth,gender,phone,email):
     success_flag=True
     str1="UPDATE OR IGNORE ISV SET "
     a=[]
-    if Class!="":
-        a.append("\nCLASS = "+Class)
     if name!="":
         a.append("\nNAME = "+name)
     if gender!="":
@@ -167,7 +164,7 @@ def Creat_Table_T(cur):
     strSQL = """
         CREATE TABLE if not exists T
         (
-            ID text PRIMARY KEY,
+            IDT text PRIMARY KEY,
             PASSWORD text,
             SALT text
         )"""
@@ -204,7 +201,7 @@ def Checkpassworld_T(cur,id,pas):
         salt=Select_T_salt(cur,id)
         pas=pas+salt
         mk= hashlib.md5(pas.encode('utf-8')).hexdigest()
-        pas_old=cur.execute('SELECT PASSWORD FROM T WHERE ID = ?;',(id,))
+        pas_old=cur.execute('SELECT PASSWORD FROM T WHERE IDT = ?;',(id,))
         pas_old=pas_old.fetchone()
         pas_old=pas_old[0]
     except:
@@ -218,8 +215,7 @@ def Creat_TableIT(cur):
     strSQL = """
         CREATE TABLE if not exists IT
         (
-            ID text PRIMARY KEY,
-            IDMA text,
+            IDT text PRIMARY KEY,
             NAME text,
             BIRTHDAY date,
             SEX text,
@@ -237,11 +233,11 @@ def Creat_TableIT(cur):
     else:
         print("Creat Fail: ")
 
-def Insert_IT(cur,con,id,IMA,name,birth,sex,phone,email):
+def Insert_IT(cur,con,id,name,birth,sex,phone,email):
     success_flag=True
     try:
         cur.execute("""INSERT OR IGNORE INTO IT
-                VALUES(?,?,?,?,?,?,?)""",(id,IMA,name,birth,sex,phone,email))
+                VALUES(?,?,?,?,?,?)""",(id,name,birth,sex,phone,email))
     except:
         success_flag=False
     if success_flag == True:
@@ -251,15 +247,13 @@ def Insert_IT(cur,con,id,IMA,name,birth,sex,phone,email):
         return False
 
 def Select_IT(cur,id):
-    result = cur.execute("SELECT * FROM IT WHERE ID = ?;",(id,)).fetchone()
+    result = cur.execute("SELECT * FROM IT WHERE IDT = ?;",(id,)).fetchone()
     return result
 
-def Update_IT(cur,con,id,IDMA,name,birth,gender,phone,email):
+def Update_IT(cur,con,id,name,birth,gender,phone,email):
     success_flag=True
     str1="UPDATE OR IGNORE IT SET "
     a=[]
-    if IDMA !="":
-        a.append("\n IDMA = "+IDMA)
     if name!="":
         a.append("\n NAME = "+name)
     if gender!="":
@@ -275,7 +269,7 @@ def Update_IT(cur,con,id,IDMA,name,birth,gender,phone,email):
             str1+=i
         else:
             str1+=i+","
-    str2="\nWHERE ID = "+id+";"
+    str2="\nWHERE IDT = "+id+";"
     str1+=str2
     print(str1)
     # cur.execute(str1)

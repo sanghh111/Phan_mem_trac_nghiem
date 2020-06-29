@@ -1,4 +1,4 @@
-from Changeinfo import*
+from Changeinfo import *
 class Open_S(Frame):
     def __init__(self,master,id):
         Frame.__init__(self,master)
@@ -28,7 +28,7 @@ class Open_S(Frame):
         self.can[1].pack(expand=True,fill=BOTH)
         
         #LABEL INFO
-        a=Label(self.can[0],text="THONG TIN SINH VIEN")
+        a=Label(self.can[0],text="THONG TIN Sinh Vien")
         a.place(x=35,y=5)
         #ID
         self.ID1=Label(self.can[0],text="ID")
@@ -38,38 +38,33 @@ class Open_S(Frame):
         #Name
         self.Name1=Label(self.can[0],text="Name")
         self.Name1.place(x=0,y=65)
-        self.Name2=Label(self.can[0],text=self.arr_info[2])
+        self.Name2=Label(self.can[0],text=self.arr_info[1])
         self.Name2.place(x=50,y=65)
-        #Class        
-        self.Class_1=Label(self.can[0],text="Class")
-        self.Class_1.place(x=0,y=95)
-        self.Class_2=Label(self.can[0],text=self.arr_info[1])
-        self.Class_2.place(x=50,y=95)
         #Birthday
         self.birth1=Label(self.can[0],text="Birthday")
-        self.birth1.place(x=0,y=125)
-        self.birth2=Label(self.can[0],text=self.arr_info[3])
-        self.birth2.place(x=50,y=125)
+        self.birth1.place(x=0,y=95)
+        self.birth2=Label(self.can[0],text=self.arr_info[2])
+        self.birth2.place(x=50,y=95)
         #Gender
         self.Gender1=Label(self.can[0],text="Gender")
-        self.Gender1.place(x=0,y=155)
-        self.Gender2=Label(self.can[0],text=self.arr_info[4])
-        self.Gender2.place(x=50,y=155)
+        self.Gender1.place(x=0,y=125)
+        self.Gender2=Label(self.can[0],text=self.arr_info[3])
+        self.Gender2.place(x=50,y=125)
         #Phone
         self.Phone1=Label(self.can[0],text="Phone")
-        self.Phone1.place(x=0,y=185)
-        self.Phone2=Label(self.can[0],text=self.arr_info[5])
-        self.Phone2.place(x=50,y=185)
+        self.Phone1.place(x=0,y=155)
+        self.Phone2=Label(self.can[0],text=self.arr_info[4])
+        self.Phone2.place(x=50,y=155)
         #Email
         self.Email1=Label(self.can[0],text="Email")
-        self.Email1.place(x=0,y=215)
-        self.Email2=Label(self.can[0],text=self.arr_info[6])
-        self.Email2.place(x=50,y=215)
+        self.Email1.place(x=0,y=185)
+        self.Email2=Label(self.can[0],text=self.arr_info[5])
+        self.Email2.place(x=50,y=185)
 
         A=Button(self.master,text = "Join class",width=17,height=5,bg="yellow")
         A.place(x=470,y=0)
         
-        B=Button(self.master,text = "Resign class",width=17,height=5,bg="blue")
+        B=Button(self.master,text = "Create class",width=17,height=5,bg="blue",command=self.create_class)
         B.place(x=470,y=80)
         
         C=Button(self.master,text = "Change info",bg="red",command=self.change)
@@ -88,3 +83,6 @@ class Open_S(Frame):
     def change(self):
         print(self.id)
         Change(Toplevel(),self.id)
+    
+    def create_class(self):
+        pass
