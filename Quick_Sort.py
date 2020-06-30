@@ -43,12 +43,12 @@ def binarySearch (arr, l, r, x,arr1=[]):
         a=len(x)
         mid = l + (r - l) // 2
         temp=arr.copy()
-        print(arr[mid][0],x)
+        # print(arr[mid][0],x)
         # If element is present at the middle itself 
         if arr[mid][0][0:a] == x and not arr[mid] in arr1: 
             arr1.append(arr[mid])
             temp.pop(mid)
-            binarySearch(temp, 0, len(arr)-1, x,arr1) 
+            binarySearch(temp, 0, len(arr)-2, x,arr1)
             return arr1
         # If element is smaller than mid, then it  
         # can only be present in left subarray 

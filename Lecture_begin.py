@@ -113,9 +113,9 @@ class Open_S(Frame):
                     self.sreachL[i][0].destroy()
                     self.sreachL[i][1].destroy()
                     self.sreachR[i].destroy()
-                self.sreach=[]
+                self.sreach.clear()
             
-        if not self.Label[b-1][0]:
+        if  self.Label:
             for i in range(0,b):
                 self.Label[i][0]=Label(self.can[1],text=self.arr_class[i][0])
                 self.Label[i][1]=Label(self.can[1],text=self.arr_class[i][2])
@@ -166,11 +166,8 @@ class Open_S(Frame):
                 self.Label[i][1].place_forget()
                 self.Label[i][0].place_forget()
                 self.radi[i].place_forget()
-        self.sreach=[]
+        self.sreach.clear()
         self.sreach=binarySearch(self.arr_class,0,len(self.arr_class)-1,self.valueSrc.get())
-        print(self.valueSrc.get())
-        print(self.sreach)
-        print(self.arr_class)
         tx=10
         ty=20
         for i in range(0,len(self.sreach)):
@@ -189,4 +186,4 @@ class Open_S(Frame):
             self.sreachR[i].place(x=tx+190,y=ty)
             ty+=20
 
-Open_S(Tk(),"1")
+Open_S(Tk(),"sang")

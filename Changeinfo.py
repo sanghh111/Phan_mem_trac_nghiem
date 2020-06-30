@@ -145,4 +145,4 @@ class Change(Frame):
         a=Update_ISV(self.cur,self.con,self.id,a[0],a[1],a[2],a[3],a[4])
         print(a)
         self.master.destroy()
-# Change(Tk(),"123")
+# Change(Tk(),"Sang")

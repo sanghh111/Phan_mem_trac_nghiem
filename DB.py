@@ -120,29 +120,29 @@ def Select_T_salt(cur,id):
     result = cur.execute("SELECT SALT FROM T WHERE IDT = ?;",(id,)).fetchone()
     return(result[0])
 
-def Update_ISV(cur,con,id,name,birth,gender,phone,email):
+def Update_ISV(cur,con,ids,name,birth,gender,phone,email):
     success_flag=True
-    str1="UPDATE OR IGNORE ISV SET "
+    str1="UPDATE OR IGNORE ISV \nSET "
     a=[]
     if name!="":
-        a.append("\nNAME = "+name)
+        a.append(" NAME = "+'"'+name+'"')
     if gender!="":
-        a.append("\nSEX = "+gender)
+        a.append(" SEX = "+'"'+gender+'"')
     if birth!="":
-        a.append("\nBIRTHDAY = "+birth)
+        a.append("BIRTHDAY = "+'"'+birth+'"')
     if phone!="":
-        a.append("\nPHONE = "+phone)
+        a.append(" PHONE = "+'"'+phone+'"')
     if email!="":
-        a.append("\nEMAIL = "+email)
+        a.append(" EMAIL = "+'"'+email+'"')
     for i in a:
         if i==a[-1]:
             str1+=i
         else:
             str1+=i+","
-    str2="\nWHERE ID = "+id+";"
+    str2="\nWHERE ID = "+'"'+ids+'"'+" ;"
     str1+=str2
     print(str1)
-    # cur.execute(str1)
+    cur.execute(str1)
     try:
         cur.execute(str1)
     except:
@@ -247,7 +247,10 @@ def Insert_IT(cur,con,id,name,birth,sex,phone,email):
         return False
 
 def Select_IT(cur,id):
-    result = cur.execute("SELECT * FROM IT WHERE IDT = ?;",(id,)).fetchone()
+    try:
+        result = cur.execute("SELECT * FROM IT WHERE IDT = ?;",(id,)).fetchone()
+    except:
+        return []
     return result
 
 def Update_IT(cur,con,id,name,birth,gender,phone,email):
@@ -255,21 +258,21 @@ def Update_IT(cur,con,id,name,birth,gender,phone,email):
     str1="UPDATE OR IGNORE IT SET "
     a=[]
     if name!="":
-        a.append("\n NAME = "+name)
+        a.append(" NAME = "+'"'+name+'"')
     if gender!="":
-        a.append("\n SEX = "+gender)
+        a.append(" SEX = "+'"'+gender+'"')
     if birth!="":
-        a.append("\n BIRTHDAY = "+birth)
+        a.append("BIRTHDAY = "+'"'+birth+'"')
     if phone!="":
-        a.append("\n PHONE = "+phone)
+        a.append(" PHONE = "+'"'+phone+'"')
     if email!="":
-        a.append("\n EMAIL = "+email)
+        a.append(" EMAIL = "+'"'+email+'"')
     for i in a:
         if i==a[-1]:
             str1+=i
         else:
             str1+=i+","
-    str2="\nWHERE IDT = "+id+";"
+    str2="\nWHERE IDT = "+'"'+id+'"'+" ;"
     str1+=str2
     print(str1)
     # cur.execute(str1)
@@ -285,17 +288,18 @@ def Update_IT(cur,con,id,name,birth,gender,phone,email):
 # con,cur=connect_DB("Sinhvien.db")
 # Creat_Table_T(cur)
 # Creat_TableIT(cur)
-# a=Update_ISV(cur,con,"123","2","1","12312","","123","12312")
+# Creat_TableISV(cur)
+# Creat_TableSV(cur)
+# a=Update_ISV(cur,con,"Sang","2","12312","","123","12312")
 # print(a)
 # a=Select_ISV(cur,"Sang")
 # print(a)
-# a=Insert_ISV(cur,con,"123","","","","","","")
+# a=Insert_ISV(cur,con,"Sang","2","","","","")
 # print(a)
 # Creat_TableISV(cur)
 # a=Select_SV_salt(cur,"123")
 # print(a)
 # a=Insert_SV(cur,con,"12","123abc","abc")
 # print(a)
-# Creat_TableSV(cur)
 # a=Select_SV(cur)
 # for i in a: 
