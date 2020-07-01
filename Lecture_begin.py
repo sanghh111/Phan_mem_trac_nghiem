@@ -186,4 +186,4 @@ class Open_S(Frame):
             self.sreachR[i].place(x=tx+190,y=ty)
             ty+=20
 
-Open_S(Tk(),"sang")
+# Open_S(Tk(),"Sang")s
